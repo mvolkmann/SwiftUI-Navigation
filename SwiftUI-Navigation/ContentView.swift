@@ -13,9 +13,10 @@ struct DataView: View {
         VStack {
             Text("v1 = \(data.v1)")
             //TODO: Why does these buttons become disabled after tapping?
-            Button("Add 1") { data.v1 += 1 }
+            //TODO: This happens in Simulator, but not in Preview!
+            Button("Add 1") { data.v1 += 1 }.buttonStyle(.bordered)
             Text("v2 = \(data.v2)")
-            Button("Update") { data.v2 += "x" }
+            Button("Update") { data.v2 += "x" }.buttonStyle(.bordered)
         }
     }
 }
@@ -76,7 +77,7 @@ struct MainPage: View {
             
             // Can attach an environment object to any view like this.
             //NavigationLink(destination: DataView().environmentObject(data)) {
-                
+            
             // But can also attach an environment object
             // to the NavigationView (see below)
             // to make it available in all linked views.
@@ -113,20 +114,41 @@ struct GrandchildPage: View {
 struct ContentView: View {
     @ObservedObject var data = SharedData()
     
+    // Going fullscreen requires hiding both
+    // the status bar and the navigation bar.
+    @State private var fullscreen = false
+    
     var body: some View {
         // Usually want this at top-level.
         // One exception is when using multiple tabs
         // where each has its own NavigationView.
+        //
+        // Currently SwiftUI only supports two customizations of the navbar.
+        // It can be hidden entirely or only the back button can be hidden.
+        // Other customizations require use of UIKit
         NavigationView {
-            MainPage()
-            // This goes on a view inside NavigationView,
-            // not on the NavigationView,
-            // because the title can change for each page.
-            // displayMode has three options:
-            // large (default), inline, and automatic.
-            // Automatic uses large for the top view and inline for others.
-                .navigationBarTitle("Main", displayMode: .large)
+            VStack {
+                Button("Toggle Fullscreen") { fullscreen.toggle() }
+                
+                MainPage()
+                // This goes on a view inside NavigationView,
+                // not on the NavigationView,
+                // because the title can change for each page.
+                // displayMode has three options:
+                // large (default), inline, and automatic.
+                // Automatic uses large for the top view and inline for others.
+            }
+            .navigationBarTitle("Main", displayMode: .large)
+            .navigationBarHidden(fullscreen)
+            .navigationBarItems(
+                leading: Button("Down") { data.v1 -= 1 },
+                trailing: HStack {
+                    Button("Up") { data.v1 += 1 }
+                    Button("Double") { data.v1 *= 2 }
+                }
+            )
         }
+        .statusBar(hidden: fullscreen)
         // Need this make an @ObservedObject available
         // to all linked views as an @EnvironmentObject.
         // All views that use it will have their body property
