@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct MainPage: View {
-    @State private var goTo4 = false
+    @State private var selection: String? = nil
+    @State private var pageToggle = false
     
     var body: some View {
         VStack {
@@ -13,17 +14,30 @@ struct MainPage: View {
                 }
             }
             
+            // Link navigation ...
+            // Also consider using the isActive argument which is
+            // a Bool that indicates if the link should be activated.
             NavigationLink(
                 destination: ChildPage(number: 4),
-                isActive: $goTo4
+                tag: "four",
+                selection: $selection
             ) {
-                Text("Go to child page")
+                Text("Go to four")
+            }
+            NavigationLink(
+                destination: ChildPage(number: 5),
+                tag: "five",
+                selection: $selection
+            ) {
+                Text("Go to five")
             }
             
-            Button("Toggle") {
+            // Programatic navigation to the link above
+            Button("Mystery Page") {
                 // Could make a REST call here.
                 // Could conditionally decide whether to set goTo4 to true.
-                goTo4 = true
+                selection = pageToggle ? "five" : "four"
+                pageToggle.toggle()
             }
         }
     }
