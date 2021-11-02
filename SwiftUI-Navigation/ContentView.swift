@@ -4,17 +4,21 @@ struct MainPage: View {
     var body: some View {
         VStack {
             Text("This is on the main page.")
-            NavigationLink(destination: ChildPage()) {
-                Text("Go to child page")
+            ForEach(1..<3) { number in
+                NavigationLink(destination: ChildPage(number: number)) {
+                    Text("Go to child \(number) page")
+                }
             }
         }
     }
 }
 
 struct ChildPage: View {
+    var number: Int
+    
     var body: some View {
         VStack {
-            Text("This is on the child page.")
+            Text("This is on the child \(number) page.")
             ForEach(1..<4) { number in
                 NavigationLink(destination: GrandchildPage(number: number)) {
                    Text("Grandchild \(number)")
