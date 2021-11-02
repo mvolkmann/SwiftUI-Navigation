@@ -1,6 +1,29 @@
 import SwiftUI
 
+class SharedData: ObservableObject {
+    @Published var v1 = 0
+    @Published var v2 = "x"
+}
+
+struct DataView: View {
+    // Need this to gain access.
+    @EnvironmentObject var data: SharedData
+    
+    var body: some View {
+        VStack {
+            Text("v1 = \(data.v1)")
+            //TODO: Why does these buttons become disabled after tapping?
+            Button("Add 1") { data.v1 += 1 }
+            Text("v2 = \(data.v2)")
+            Button("Update") { data.v2 += "x" }
+        }
+    }
+}
+
 struct MainPage: View {
+    // Need this to gain access.
+    @EnvironmentObject var data: SharedData
+    
     // selection can be other types like Int.
     @State private var selection: String? = nil
     
@@ -43,9 +66,22 @@ struct MainPage: View {
                 pageToggle.toggle()
                 
                 // Return to current page after 2 seconds.
+                // This is like setTimeout in JavaScript.
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     selection = nil
                 }
+            }
+            
+            Text("data.v1 = \(data.v1)")
+            
+            // Can attach an environment object to any view like this.
+            //NavigationLink(destination: DataView().environmentObject(data)) {
+                
+            // But can also attach an environment object
+            // to the NavigationView (see below)
+            // to make it available in all linked views.
+            NavigationLink(destination: DataView()) {
+                Text("Go to DataView")
             }
         }
     }
@@ -75,6 +111,8 @@ struct GrandchildPage: View {
 }
 
 struct ContentView: View {
+    @ObservedObject var data = SharedData()
+    
     var body: some View {
         // Usually want this at top-level.
         // One exception is when using multiple tabs
@@ -89,6 +127,11 @@ struct ContentView: View {
             // Automatic uses large for the top view and inline for others.
                 .navigationBarTitle("Main", displayMode: .large)
         }
+        // Need this make an @ObservedObject available
+        // to all linked views as an @EnvironmentObject.
+        // All views that use it will have their body property
+        // reevaluated if the value changes.
+        .environmentObject(data)
     }
 }
 
