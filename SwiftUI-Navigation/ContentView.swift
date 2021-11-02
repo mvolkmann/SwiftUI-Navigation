@@ -1,13 +1,29 @@
 import SwiftUI
 
 struct MainPage: View {
+    @State private var goTo4 = false
+    
     var body: some View {
         VStack {
             Text("This is on the main page.")
+            
             ForEach(1..<3) { number in
                 NavigationLink(destination: ChildPage(number: number)) {
                     Text("Go to child \(number) page")
                 }
+            }
+            
+            NavigationLink(
+                destination: ChildPage(number: 4),
+                isActive: $goTo4
+            ) {
+                Text("Go to child page")
+            }
+            
+            Button("Toggle") {
+                // Could make a REST call here.
+                // Could conditionally decide whether to set goTo4 to true.
+                goTo4 = true
             }
         }
     }
@@ -21,7 +37,7 @@ struct ChildPage: View {
             Text("This is on the child \(number) page.")
             ForEach(1..<4) { number in
                 NavigationLink(destination: GrandchildPage(number: number)) {
-                   Text("Grandchild \(number)")
+                    Text("Grandchild \(number)")
                 }
             }
         }
@@ -49,7 +65,7 @@ struct ContentView: View {
             // displayMode has three options:
             // large (default), inline, and automatic.
             // Automatic uses large for the top view and inline for others.
-            .navigationBarTitle("Main", displayMode: .large)
+                .navigationBarTitle("Main", displayMode: .large)
         }
     }
 }
