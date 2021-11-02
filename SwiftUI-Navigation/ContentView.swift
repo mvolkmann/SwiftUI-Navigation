@@ -1,5 +1,37 @@
 import SwiftUI
 
+// watchOS does not support NavigationView.
+// This is a shim that provides a shell implementation
+// so the same code that works in iOS can work in watchOS.
+// To run this app as a watchOS app in the simulator ...
+#if os(watchOS)
+struct NavigationView<Content: View>: View {
+    let content: () -> Content
+    
+    init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+    }
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            content()
+        }
+    }
+}
+#endif
+
+// macOS does not support the navigationBarTitle view modifier.
+// This is a shim that provides a shell implementation
+// so the same code that works in iOS can work in macOS.
+// To run this app as a macOS app in the simulator ...
+#if os(macOS)
+extension View {
+    func navigationBarTitle(_ title: String) -> some View {
+        self
+    }
+}
+#endif
+
 class SharedData: ObservableObject {
     @Published var v1 = 0
     @Published var v2 = "x"
