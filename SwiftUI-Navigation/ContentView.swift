@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct MainPage: View {
+    // selection can be other types like Int.
     @State private var selection: String? = nil
+    
     @State private var pageToggle = false
     
     var body: some View {
@@ -15,8 +17,8 @@ struct MainPage: View {
             }
             
             // Link navigation ...
-            // Also consider using the isActive argument which is
-            // a Bool that indicates if the link should be activated.
+            // Also consider using the isActive argument which is an
+            // @State Bool that indicates if the link should be activated.
             NavigationLink(
                 destination: ChildPage(number: 4),
                 tag: "four",
@@ -35,9 +37,15 @@ struct MainPage: View {
             // Programatic navigation to the link above
             Button("Mystery Page") {
                 // Could make a REST call here.
-                // Could conditionally decide whether to set goTo4 to true.
                 selection = pageToggle ? "five" : "four"
+                
+                // Could conditionally decide how to set pageToggle.
                 pageToggle.toggle()
+                
+                // Return to current page after 2 seconds.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    selection = nil
+                }
             }
         }
     }
