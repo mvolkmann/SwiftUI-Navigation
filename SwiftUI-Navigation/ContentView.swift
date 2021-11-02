@@ -141,11 +141,16 @@ struct ContentView: View {
             .navigationBarTitle("Main", displayMode: .large)
             .navigationBarHidden(fullscreen)
             .navigationBarItems(
-                leading: Button("Down") { data.v1 -= 1 },
-                trailing: HStack {
-                    Button("Up") { data.v1 += 1 }
-                    Button("Double") { data.v1 *= 2 }
-                }
+                leading:
+                    Button("Down") { data.v1 -= 1 }
+                        .foregroundColor(.white),
+                trailing:
+                    HStack {
+                        Button("Up") { data.v1 += 1 }
+                            .foregroundColor(.white)
+                        Button("Double") { data.v1 *= 2 }
+                            .foregroundColor(.white)
+                    }
             )
         }
         .statusBar(hidden: fullscreen)

@@ -11,6 +11,7 @@
 		4D82A5132730B51800F8F4A6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D82A5122730B51800F8F4A6 /* ContentView.swift */; };
 		4D82A5152730B51C00F8F4A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D82A5142730B51C00F8F4A6 /* Assets.xcassets */; };
 		4D82A5182730B51C00F8F4A6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D82A5172730B51C00F8F4A6 /* Preview Assets.xcassets */; };
+		4D82A51F2731676B00F8F4A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D82A51E2731676B00F8F4A6 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		4D82A5122730B51800F8F4A6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4D82A5142730B51C00F8F4A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D82A5172730B51C00F8F4A6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4D82A51E2731676B00F8F4A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 				4D82A5122730B51800F8F4A6 /* ContentView.swift */,
 				4D82A5142730B51C00F8F4A6 /* Assets.xcassets */,
 				4D82A5162730B51C00F8F4A6 /* Preview Content */,
+				4D82A51E2731676B00F8F4A6 /* AppDelegate.swift */,
 			);
 			path = "SwiftUI-Navigation";
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D82A51F2731676B00F8F4A6 /* AppDelegate.swift in Sources */,
 				4D82A5132730B51800F8F4A6 /* ContentView.swift in Sources */,
 				4D82A5112730B51800F8F4A6 /* SwiftUI_NavigationApp.swift in Sources */,
 			);
